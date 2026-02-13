@@ -10,7 +10,7 @@ interface Message {
 const AIChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: "Welcome to Limitless Rythymm! What style do you want to learn? (Western or Bollywood?)" }
+    { role: 'model', text: "Welcome to Limitless Rythymm! Are you looking for dance classes, or do you have an event you'd like us to choreograph for?" }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -41,9 +41,9 @@ const AIChatBot: React.FC = () => {
   };
 
   const QUICK_ACTIONS = [
-    "Western Styles",
-    "Bollywood Fusion",
-    "Show Packages",
+    "Academy Classes",
+    "Event Choreography",
+    "Wedding Magic",
     "Meet Faculty"
   ];
 
@@ -54,7 +54,9 @@ const AIChatBot: React.FC = () => {
         onClick={() => setIsOpen(true)}
         className="fixed bottom-28 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-[0_15px_30px_rgba(65,105,225,0.4)] flex items-center justify-center z-[70] hover:scale-110 active:scale-90 transition-all border-2 border-white/20"
       >
-        <span className="material-icons-round text-2xl">auto_awesome</span>
+        <div className="w-8 h-8">
+            <img src="https://i.ibb.co/GfkQ5MpP/image.png" className="w-full h-full object-contain brightness-0 invert" alt="Logo" />
+        </div>
         <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-background-dark animate-pulse"></div>
       </button>
 
@@ -67,8 +69,8 @@ const AIChatBot: React.FC = () => {
             {/* Header */}
             <div className="p-6 bg-primary/10 border-b border-white/5 flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg">
-                  <span className="material-icons-round">blur_on</span>
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white shadow-lg overflow-hidden p-1.5">
+                  <img src="https://i.ibb.co/GfkQ5MpP/image.png" className="w-full h-full object-contain brightness-0 invert" alt="LR AI" />
                 </div>
                 <div>
                   <h3 className="font-black text-sm uppercase tracking-widest">LR Pulse</h3>
@@ -130,7 +132,7 @@ const AIChatBot: React.FC = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend(input)}
-                  placeholder="Tell me your style choice..."
+                  placeholder="Tell us what you're looking for..."
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-5 pr-14 text-sm focus:outline-none focus:border-primary transition-colors text-white"
                 />
                 <button 

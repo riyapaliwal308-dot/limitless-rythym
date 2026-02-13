@@ -134,7 +134,7 @@ const Profile: React.FC = () => {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom duration-700 pb-20">
-      {/* Premium Header with Logo */}
+      {/* Premium Header with Official Logo */}
       <div className="relative h-64 w-full bg-[#0a1120] overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center opacity-20 scale-125">
            <img 
@@ -146,8 +146,12 @@ const Profile: React.FC = () => {
         </div>
         
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-48 h-48 opacity-40">
-                <span className="material-icons-round text-[180px] text-white/10">blur_on</span>
+            <div className="w-64 h-64 opacity-30">
+                <img 
+                  src="https://i.ibb.co/GfkQ5MpP/image.png" 
+                  className="w-full h-full object-contain brightness-0 invert" 
+                  alt="LR Logo Watermark" 
+                />
             </div>
         </div>
 

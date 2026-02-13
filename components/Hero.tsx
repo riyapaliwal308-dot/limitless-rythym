@@ -19,10 +19,14 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent"></div>
       <div className="absolute inset-0 bg-black/20"></div>
       
-      {/* Brand Mark */}
+      {/* Brand Mark with Official Logo */}
       <div className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl">
-         <div className="w-6 h-6 flex items-center justify-center">
-            <span className="material-icons-round text-primary text-2xl">blur_on</span>
+         <div className="w-8 h-8 flex items-center justify-center">
+            <img 
+              src="https://i.ibb.co/GfkQ5MpP/image.png" 
+              className="w-full h-full object-contain" 
+              alt="LR Logo" 
+            />
          </div>
          <span className="text-[11px] font-black uppercase tracking-[0.3em]">Limitless</span>
       </div>
