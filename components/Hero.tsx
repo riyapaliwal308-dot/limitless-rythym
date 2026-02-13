@@ -7,10 +7,10 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-[560px] w-full overflow-hidden">
-      {/* High-impact Academy Image provided by user */}
+      {/* High-impact Academy Image */}
       <img 
         className="w-full h-full object-cover" 
-        src="https://i.ibb.co/wFjGWs22/image.png" 
+        src="https://i.ibb.co/pBtSQyC1/download.jpg" 
         alt="Limitless Rythymm Performance"
         onError={(e) => {
           (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?q=80&w=2070&auto=format&fit=crop';
@@ -19,19 +19,19 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent"></div>
       <div className="absolute inset-0 bg-black/20"></div>
       
-      {/* Brand Mark with Official Logo - Clickable for Popup */}
+      {/* Brand Mark with Monogram Logo - Fixed Filter */}
       <div 
         onClick={() => window.openLogoModal && window.openLogoModal()}
-        className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 hover:scale-105 active:scale-95 transition-all"
+        className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 hover:scale-105 active:scale-95 transition-all group"
       >
          <div className="w-8 h-8 flex items-center justify-center">
             <img 
-              src="https://i.ibb.co/GfkQ5MpP/image.png" 
+              src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
               className="w-full h-full object-contain" 
               alt="LR Logo" 
             />
          </div>
-         <span className="text-[11px] font-black uppercase tracking-[0.3em]">Limitless</span>
+         <span className="text-[11px] font-black uppercase tracking-[0.3em] group-hover:text-primary transition-colors text-white">Limitless</span>
       </div>
 
       <div className="absolute bottom-0 left-0 p-8 w-full z-10">
@@ -39,8 +39,11 @@ const Hero: React.FC = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#4169E1]"></span>
             <span className="white text-[10px] font-black tracking-[0.2em] uppercase text-white">Admissions Open • Season 04</span>
         </div>
-        <h1 className="text-5xl font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl">
-          LIMITLESS<br/><span className="text-primary italic">RYTHYMM</span> ACADEMY
+        <h1 
+          onClick={() => window.openLogoModal && window.openLogoModal()}
+          className="text-5xl font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl cursor-pointer hover:opacity-90 transition-opacity"
+        >
+          <span className="hover:text-primary transition-colors">LIMITLESS</span><br/><span className="text-primary italic">RYTHYMM</span> ACADEMY
         </h1>
         <p className="text-slate-200 mt-5 text-sm max-w-[90%] leading-relaxed font-semibold drop-shadow-lg">
           Master the rhythm where East meets West. The premier destination for Bollywood Fusion and Urban Street Dance.

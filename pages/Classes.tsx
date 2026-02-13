@@ -86,7 +86,22 @@ const Classes: React.FC = () => {
   const filteredClasses = filter === 'All' ? CLASSES : CLASSES.filter(c => c.level === filter);
 
   return (
-    <div className="px-6 pt-6 animate-in slide-in-from-right duration-500">
+    <div className="px-6 pt-4 animate-in slide-in-from-right duration-500">
+      {/* Brand Mark Header */}
+      <div 
+        onClick={() => window.openLogoModal && window.openLogoModal()}
+        className="flex items-center gap-3 px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl mb-6 w-fit cursor-pointer hover:bg-white/10 transition-all"
+      >
+         <div className="w-5 h-5 flex items-center justify-center">
+            <img 
+              src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
+              className="w-full h-full object-contain brightness-0 invert" 
+              alt="LR Logo" 
+            />
+         </div>
+         <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400">Limitless</span>
+      </div>
+
       <h1 className="text-4xl font-black tracking-tighter mb-2">Academy Styles</h1>
       <p className="text-slate-500 text-sm font-semibold mb-8">Structured elite curriculum for urban artists.</p>
 

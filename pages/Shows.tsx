@@ -73,6 +73,21 @@ const Shows: React.FC = () => {
 
   return (
     <div className="px-6 pt-4 pb-32 animate-in slide-in-from-right duration-300">
+      {/* Brand Mark Header */}
+      <div 
+        onClick={() => window.openLogoModal && window.openLogoModal()}
+        className="flex items-center gap-3 px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl mb-6 w-fit cursor-pointer hover:bg-white/10 transition-all"
+      >
+         <div className="w-5 h-5 flex items-center justify-center">
+            <img 
+              src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
+              className="w-full h-full object-contain brightness-0 invert" 
+              alt="LR Logo" 
+            />
+         </div>
+         <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400">Limitless</span>
+      </div>
+
       <h1 className="text-3xl font-extrabold mb-2">Performances</h1>
       <p className="text-slate-400 text-sm mb-6">The magic of dance, live on stage.</p>
 
@@ -91,7 +106,7 @@ const Shows: React.FC = () => {
         <div className="relative rounded-[40px] overflow-hidden aspect-[4/3] group shadow-2xl">
           <img 
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
-            src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071&auto=format&fit=crop" 
+            src="https://i.ibb.co/tM0CQ3pD/download-3.jpg" 
             alt="The Urban Pulse" 
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-90"></div>

@@ -23,19 +23,16 @@ declare global {
 const App: React.FC = () => {
   const [showLogoModal, setShowLogoModal] = useState(false);
   
-  // Safe initialization for SSR environments like Vercel build steps
   const [user, setUser] = useState(() => {
-    const isBrowser = typeof window !== 'undefined';
-    if (!isBrowser) return { name: 'Alex Rivera', photo: 'https://picsum.photos/seed/user123/200' };
-    
+    if (typeof window === 'undefined') return { name: 'Alex Rivera', photo: 'https://picsum.photos/seed/user123/200' };
     return {
       name: localStorage.getItem('lr_user_name') || 'Alex Rivera',
       photo: localStorage.getItem('lr_user_photo') || 'https://picsum.photos/seed/user123/200'
     };
   });
 
-  // Assign global methods immediately so they are available to child components during first render
-  if (typeof window !== 'undefined') {
+  // Effect to handle global window assignments safely
+  useEffect(() => {
     window.openLogoModal = () => setShowLogoModal(true);
     window.updateUser = (name: string, photo?: string) => {
       const newUser = { ...user, name, photo: photo || user.photo };
@@ -44,7 +41,7 @@ const App: React.FC = () => {
       localStorage.setItem('lr_user_photo', newUser.photo);
     };
     window.userData = user;
-  }
+  }, [user]);
 
   return (
     <Router>
@@ -83,26 +80,30 @@ const App: React.FC = () => {
         {/* Global Logo Popup */}
         {showLogoModal && (
           <div 
-            className="fixed inset-0 z-[200] flex items-center justify-center p-8 bg-black/90 backdrop-blur-2xl animate-in fade-in duration-300"
+            className="fixed inset-0 z-[200] flex items-center justify-center p-8 bg-black/95 backdrop-blur-2xl animate-in fade-in duration-300"
             onClick={() => setShowLogoModal(false)}
           >
-            <div className="relative max-w-[280px] w-full animate-in zoom-in duration-500 flex flex-col items-center">
-                <div className="w-full aspect-square relative">
-                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-[60px] animate-pulse"></div>
+            <div className="relative max-w-[320px] w-full animate-in zoom-in duration-500 flex flex-col items-center">
+                <div className="w-full aspect-square relative flex items-center justify-center">
+                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
+                    {/* Removed brightness-0 invert to show original logo colors */}
                     <img 
-                      src="https://i.ibb.co/GfkQ5MpP/image.png" 
-                      className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(65,105,225,0.6)] relative z-10" 
+                      src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
+                      className="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 
                       alt="Limitless Rythymm Logo" 
                     />
                 </div>
-                <h2 className="text-2xl font-black tracking-[0.4em] uppercase text-white mt-12 text-center">Limitless</h2>
-                <p className="text-primary font-bold text-[10px] uppercase tracking-[0.6em] mt-2">Rythymm Academy</p>
+                <h2 className="text-3xl font-black tracking-[0.4em] uppercase text-white mt-12 text-center">Limitless</h2>
+                <p className="text-primary font-bold text-[10px] uppercase tracking-[0.6em] mt-3">Elite Academy</p>
                 
                 <button 
-                    className="mt-16 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:text-white transition-colors border border-white/10"
-                    onClick={() => setShowLogoModal(false)}
+                    className="mt-16 w-14 h-14 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:text-white transition-all border border-white/10 hover:bg-white/10 active:scale-90"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowLogoModal(false);
+                    }}
                 >
-                    <span className="material-icons-round">close</span>
+                    <span className="material-icons-round text-2xl">close</span>
                 </button>
             </div>
           </div>

@@ -198,28 +198,28 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050a14]"></div>
         </div>
         
-        {/* Visible Watermark Logo - Clickable */}
+        {/* Visible Watermark Logo - Updated to Monogram */}
         <div 
           onClick={() => window.openLogoModal && window.openLogoModal()}
           className="absolute inset-0 flex items-center justify-center cursor-pointer group"
         >
             <div className="w-64 h-64 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
                 <img 
-                  src="https://i.ibb.co/GfkQ5MpP/image.png" 
+                  src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
                   className="w-full h-full object-contain brightness-0 invert" 
                   alt="LR Logo Watermark" 
                 />
             </div>
         </div>
 
-        {/* Top Brand Mark */}
+        {/* Top Brand Mark - Updated to Monogram */}
         <div 
           onClick={() => window.openLogoModal && window.openLogoModal()}
           className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 transition-all"
         >
            <div className="w-8 h-8 flex items-center justify-center">
               <img 
-                src="https://i.ibb.co/GfkQ5MpP/image.png" 
+                src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
                 className="w-full h-full object-contain" 
                 alt="LR Logo" 
               />

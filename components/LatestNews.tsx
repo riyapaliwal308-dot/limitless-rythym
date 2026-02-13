@@ -8,7 +8,7 @@ const NEWS: NewsItem[] = [
     category: 'STUDIO DIARY',
     title: 'Fusion Masterclass Sessions',
     description: 'Inside our latest intensive studio session exploring the intersection of classical and urban movement.',
-    imageUrl: 'https://i.ibb.co/FGhC9Sn/image.png'
+    imageUrl: 'https://i.ibb.co/8nf32PTG/download-2.jpg'
   },
   {
     id: '1',

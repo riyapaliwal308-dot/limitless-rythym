@@ -9,7 +9,7 @@ const UPCOMING_SHOWS: Show[] = [
     category: 'High-Energy Fusion Night',
     dates: 'JAN 05-08',
     priceFrom: 1499,
-    imageUrl: 'https://i.ibb.co/DHVSz0R4/image.png'
+    imageUrl: 'https://i.ibb.co/mCNQdPXt/download-1.jpg'
   },
   {
     id: '1',
