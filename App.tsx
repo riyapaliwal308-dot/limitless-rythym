@@ -22,12 +22,20 @@ declare global {
 
 const App: React.FC = () => {
   const [showLogoModal, setShowLogoModal] = useState(false);
-  const [user, setUser] = useState({
-    name: localStorage.getItem('lr_user_name') || 'Alex Rivera',
-    photo: localStorage.getItem('lr_user_photo') || 'https://picsum.photos/seed/user123/200'
+  
+  // Safe initialization for SSR environments like Vercel build steps
+  const [user, setUser] = useState(() => {
+    const isBrowser = typeof window !== 'undefined';
+    if (!isBrowser) return { name: 'Alex Rivera', photo: 'https://picsum.photos/seed/user123/200' };
+    
+    return {
+      name: localStorage.getItem('lr_user_name') || 'Alex Rivera',
+      photo: localStorage.getItem('lr_user_photo') || 'https://picsum.photos/seed/user123/200'
+    };
   });
 
-  useEffect(() => {
+  // Assign global methods immediately so they are available to child components during first render
+  if (typeof window !== 'undefined') {
     window.openLogoModal = () => setShowLogoModal(true);
     window.updateUser = (name: string, photo?: string) => {
       const newUser = { ...user, name, photo: photo || user.photo };
@@ -36,7 +44,7 @@ const App: React.FC = () => {
       localStorage.setItem('lr_user_photo', newUser.photo);
     };
     window.userData = user;
-  }, [user]);
+  }
 
   return (
     <Router>
