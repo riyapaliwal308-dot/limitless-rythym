@@ -1,7 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 
-type ViewState = 'main' | 'pass' | 'qr' | 'billing' | 'edit_profile';
+type ViewState = 'main' | 'pass' | 'qr' | 'billing' | 'edit_profile' | 'contact';
 
 interface ProfileProps {
   user: { name: string; photo: string };
@@ -85,22 +85,32 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       
       <div className="bg-white p-8 rounded-[40px] inline-block mb-8 shadow-2xl shadow-white/5">
         <img 
-          src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://maps.google.com/?q=Limitless+Rythymm+Academy+Mumbai+User+${encodeURIComponent(user.name)}`} 
+          src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://maps.google.com/?q=Limitless+Rythymm+Academy+Andheri+West+Mumbai+User+${encodeURIComponent(user.name)}`} 
           alt="Studio Location QR"
           className="w-48 h-48"
         />
       </div>
       
       <h2 className="text-2xl font-black tracking-tight mb-2">Studio Digital ID</h2>
-      <p className="text-slate-400 text-sm mb-10">Scan this at the front desk for check-in or to share our location.</p>
+      <p className="text-slate-400 text-sm mb-10">Scan this at the front desk for check-in or to visit our Mumbai studio.</p>
       
-      <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 text-left flex items-start gap-4">
+      <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 text-left flex items-start gap-4 mb-4">
         <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
           <span className="material-icons-round">location_on</span>
         </div>
         <div>
           <h4 className="font-bold text-sm">Limitless Rythymm HQ</h4>
-          <p className="text-xs text-slate-500 mt-1 leading-relaxed">Unit 4B, Terminal 5 Creative District,<br/>Industrial Estate, Mumbai - 400013</p>
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">Andheri West, Mumbai,<br/>Maharashtra, India</p>
+        </div>
+      </div>
+
+      <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 text-left flex items-start gap-4">
+        <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 shrink-0">
+          <span className="material-icons-round">contact_support</span>
+        </div>
+        <div>
+          <h4 className="font-bold text-sm">Contact Details</h4>
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">Phone: +91 97185 34236<br/>Email: riyapaliwal308@gmail.com</p>
         </div>
       </div>
     </div>
@@ -130,6 +140,55 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       <button className="w-full py-5 rounded-[24px] border border-dashed border-white/10 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary/5 transition-all">
         + Add Payment Method
       </button>
+    </div>
+  );
+
+  const renderContact = () => (
+    <div className="animate-in slide-in-from-right duration-500 px-6 pt-4">
+      <button onClick={() => setActiveView('main')} className="flex items-center gap-2 text-slate-500 mb-8 font-black text-[10px] uppercase tracking-widest">
+        <span className="material-icons-round text-sm">arrow_back</span> Back
+      </button>
+      
+      <h2 className="text-2xl font-black tracking-tight mb-6">Contact Studio</h2>
+      
+      <div className="space-y-4">
+        <a href="tel:9718534236" className="p-6 rounded-[32px] bg-surface-dark border border-white/5 flex items-center gap-5 active:bg-white/10 transition-all">
+          <div className="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+            <span className="material-icons-round text-3xl">call</span>
+          </div>
+          <div>
+            <h4 className="font-black text-sm">Call Us</h4>
+            <p className="text-xs text-slate-500 mt-1">+91 97185 34236</p>
+          </div>
+        </a>
+
+        <a href="mailto:riyapaliwal308@gmail.com" className="p-6 rounded-[32px] bg-surface-dark border border-white/5 flex items-center gap-5 active:bg-white/10 transition-all">
+          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+            <span className="material-icons-round text-3xl">email</span>
+          </div>
+          <div>
+            <h4 className="font-black text-sm">Email Us</h4>
+            <p className="text-xs text-slate-500 mt-1">riyapaliwal308@gmail.com</p>
+          </div>
+        </a>
+
+        <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 flex items-center gap-5">
+          <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500">
+            <span className="material-icons-round text-3xl">location_on</span>
+          </div>
+          <div>
+            <h4 className="font-black text-sm">Studio Location</h4>
+            <p className="text-xs text-slate-500 mt-1">Andheri West, Mumbai</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-12 p-8 rounded-[40px] bg-primary/5 border border-primary/10">
+        <h4 className="text-sm font-black text-primary uppercase tracking-widest mb-2">Visit Us</h4>
+        <p className="text-xs text-slate-400 leading-relaxed font-medium">
+          Our doors are open Monday to Saturday, 10 AM to 9 PM. We'd love to see you in person for a studio tour!
+        </p>
+      </div>
     </div>
   );
 
@@ -176,6 +235,7 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
   if (activeView === 'pass') return renderPassDetails();
   if (activeView === 'qr') return renderLocationQR();
   if (activeView === 'billing') return renderBilling();
+  if (activeView === 'contact') return renderContact();
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom duration-700 pb-20">
@@ -198,7 +258,7 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050a14]"></div>
         </div>
         
-        {/* Visible Watermark Logo - Updated to Monogram */}
+        {/* Visible Watermark Logo */}
         <div 
           onClick={() => window.openLogoModal && window.openLogoModal()}
           className="absolute inset-0 flex items-center justify-center cursor-pointer group"
@@ -212,7 +272,7 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
             </div>
         </div>
 
-        {/* Top Brand Mark - Updated to Monogram */}
+        {/* Top Brand Mark */}
         <div 
           onClick={() => window.openLogoModal && window.openLogoModal()}
           className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 transition-all"
@@ -258,6 +318,43 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
             <span className="text-primary font-black text-[10px] uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded">Elite Member</span>
             <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">• Since 2023</span>
         </div>
+      </div>
+
+      {/* Main Studio Info (Directly Visible) */}
+      <div className="px-6 mt-8">
+         <div className="p-6 rounded-[32px] bg-gradient-to-br from-surface-dark to-black border border-white/10 shadow-xl overflow-hidden relative group">
+            <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-700"></div>
+            <h3 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-4">Mumbai Studio HQ</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    <span className="material-icons-round text-xl">location_on</span>
+                 </div>
+                 <div>
+                    <p className="text-sm font-bold text-white">Andheri West, Mumbai</p>
+                    <p className="text-[10px] text-slate-500 font-medium mt-0.5 uppercase tracking-wider">Maharashtra, India</p>
+                 </div>
+              </div>
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center text-green-500 shrink-0">
+                    <span className="material-icons-round text-xl">call</span>
+                 </div>
+                 <div>
+                    <p className="text-sm font-bold text-white">+91 97185 34236</p>
+                    <p className="text-[10px] text-slate-500 font-medium mt-0.5 uppercase tracking-wider">WhatsApp & Calls</p>
+                 </div>
+              </div>
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 shrink-0">
+                    <span className="material-icons-round text-xl">mail</span>
+                 </div>
+                 <div>
+                    <p className="text-sm font-bold text-white">riyapaliwal308@gmail.com</p>
+                    <p className="text-[10px] text-slate-500 font-medium mt-0.5 uppercase tracking-wider">Official Inquiries</p>
+                 </div>
+              </div>
+            </div>
+         </div>
       </div>
 
       <div className="px-6 mt-10 space-y-4">
@@ -313,7 +410,10 @@ const Profile: React.FC<ProfileProps> = ({ user }) => {
       </div>
 
       <div className="px-6 pb-12">
-        <button className="w-full mt-10 py-5 text-slate-500 font-black text-xs uppercase tracking-widest rounded-[24px] border border-white/5 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all active:scale-95">
+        <button 
+          onClick={() => window.signOut()}
+          className="w-full mt-10 py-5 text-slate-500 font-black text-xs uppercase tracking-widest rounded-[24px] border border-white/5 hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/20 transition-all active:scale-95"
+        >
           Sign Out of Academy
         </button>
       </div>

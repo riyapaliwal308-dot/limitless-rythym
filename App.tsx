@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import ClassDetail from './pages/ClassDetail';
 import Checkout from './pages/Checkout';
 import Register from './pages/Register';
+import Login from './pages/Login';
 import BottomNav from './components/BottomNav';
 import AIChatBot from './components/AIChatBot';
 
@@ -16,15 +17,19 @@ declare global {
   interface Window {
     openLogoModal: () => void;
     updateUser: (name: string, photo?: string) => void;
+    signOut: () => void;
+    signIn: (name: string) => void;
     userData: { name: string; photo: string };
   }
 }
 
 const App: React.FC = () => {
   const [showLogoModal, setShowLogoModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('lr_is_logged_in') === 'true';
+  });
   
   const [user, setUser] = useState(() => {
-    if (typeof window === 'undefined') return { name: 'Alex Rivera', photo: 'https://picsum.photos/seed/user123/200' };
     return {
       name: localStorage.getItem('lr_user_name') || 'Alex Rivera',
       photo: localStorage.getItem('lr_user_photo') || 'https://picsum.photos/seed/user123/200'
@@ -34,14 +39,32 @@ const App: React.FC = () => {
   // Effect to handle global window assignments safely
   useEffect(() => {
     window.openLogoModal = () => setShowLogoModal(true);
+    
     window.updateUser = (name: string, photo?: string) => {
       const newUser = { ...user, name, photo: photo || user.photo };
       setUser(newUser);
       localStorage.setItem('lr_user_name', newUser.name);
       localStorage.setItem('lr_user_photo', newUser.photo);
     };
+
+    window.signOut = () => {
+      setIsLoggedIn(false);
+      localStorage.removeItem('lr_is_logged_in');
+      // We keep name/photo for "Welcome back" vibes but session is dead
+    };
+
+    window.signIn = (name: string) => {
+      setIsLoggedIn(true);
+      localStorage.setItem('lr_is_logged_in', 'true');
+      window.updateUser(name);
+    };
+
     window.userData = user;
   }, [user]);
+
+  if (!isLoggedIn) {
+    return <Login />;
+  }
 
   return (
     <Router>
@@ -86,7 +109,6 @@ const App: React.FC = () => {
             <div className="relative max-w-[320px] w-full animate-in zoom-in duration-500 flex flex-col items-center">
                 <div className="w-full aspect-square relative flex items-center justify-center">
                     <div className="absolute inset-0 bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
-                    {/* Removed brightness-0 invert to show original logo colors */}
                     <img 
                       src="https://i.ibb.co/mFtRR255/LR-Monogram-Logo.png" 
                       className="w-full h-full object-contain relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" 

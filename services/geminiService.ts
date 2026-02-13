@@ -4,6 +4,11 @@ import { GoogleGenAI, Type } from "@google/genai";
 const ACADEMY_CONTEXT = `
 You are the Limitless Rythymm (LR) AI Assistant. 
 
+STUDIO INFORMATION:
+- Location: Andheri West, Mumbai, Maharashtra.
+- Contact Phone: +91 97185 34236
+- Contact Email: riyapaliwal308@gmail.com
+
 CONVERSATIONAL FLOWS:
 
 1. INITIAL FILTER:
@@ -29,6 +34,7 @@ TONE & CONSTRAINTS:
 - Be energetic and professional.
 - CRITICAL: Keep answers EXTREMELY BRIEF (max 2 short sentences).
 - Do not dump all info. Answer the specific question asked.
+- If they ask for the address or contact info, provide the Andheri West, Mumbai location and the +91 97185 34236 phone number.
 `;
 
 export const getAIRecommendation = async (userInterests: string) => {
