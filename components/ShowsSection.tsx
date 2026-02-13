@@ -4,49 +4,61 @@ import { Show } from '../types';
 
 const UPCOMING_SHOWS: Show[] = [
   {
-    id: '1',
-    title: 'Modern Echoes',
-    category: 'Experimental Contemporary Ensemble',
-    dates: 'DEC 12-15',
-    priceFrom: 45,
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBdTjkel5Lj8zPbn5IWIhkuvVYd3UtM86uCp7S87CMnr6D3zxa2vS_rn2nvqlfNy8cuKsmLQfdfGRT5pxIJY5fu06qFdxbDGMoHPPayiYwARQmBJ3WDXwmfcGMms23AdoBIA7mUtMKxC_6F4maJBqr3t8ezrHFMFMVf49Z9q_1wRztYO4e8cLiyfCRCpUsEjTJ7uovK6FfBieHEdpIi-jXT0cSy_mp6cHNDXtdkZFVXk4x6d8fdnvxKzRKwTLG5lyF8UmCgx4t2ftyw'
-  },
-  {
     id: '3',
     title: 'Bollywood Blast',
     category: 'High-Energy Fusion Night',
     dates: 'JAN 05-08',
-    priceFrom: 35,
-    imageUrl: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=2069&auto=format&fit=crop'
+    priceFrom: 1499,
+    imageUrl: 'https://i.ibb.co/DHVSz0R4/image.png'
+  },
+  {
+    id: '1',
+    title: 'Modern Echoes',
+    category: 'Experimental Contemporary Ensemble',
+    dates: 'DEC 12-15',
+    priceFrom: 1999,
+    imageUrl: 'https://images.unsplash.com/photo-1518834107812-67b0b7c58434?q=80&w=1935&auto=format&fit=crop'
   }
 ];
 
 const ShowsSection: React.FC = () => {
   return (
-    <section className="mt-8 px-6">
-      <div className="flex justify-between items-end mb-4">
+    <section className="mt-12 px-6">
+      <div className="flex justify-between items-end mb-6">
         <div>
-          <h2 className="text-xl font-bold tracking-tight">Live Battles & Shows</h2>
-          <p className="text-xs text-slate-400">Experience the energy live</p>
+            <h2 className="text-[10px] font-black text-primary uppercase tracking-[0.3em] mb-1">On Stage</h2>
+            <h3 className="text-2xl font-black tracking-tight">Upcoming Premieres</h3>
         </div>
-        <button className="text-primary text-xs font-bold uppercase tracking-wider">See All</button>
+        <button className="bg-white/5 p-2 rounded-xl text-slate-400 hover:text-white transition-colors">
+            <span className="material-icons-round">tune</span>
+        </button>
       </div>
-      <div className="flex overflow-x-auto gap-4 hide-scrollbar snap-x snap-mandatory -mx-6 px-6 pb-2">
+      <div className="flex overflow-x-auto gap-5 hide-scrollbar snap-x snap-mandatory -mx-6 px-6 pb-4">
         {UPCOMING_SHOWS.map((show) => (
-          <div key={show.id} className="min-w-[260px] snap-start bg-primary/5 rounded-2xl overflow-hidden border border-white/5">
-            <div className="h-40 relative">
-              <img className="w-full h-full object-cover" src={show.imageUrl} alt={show.title} />
-              <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-md text-white text-[10px] font-bold px-2 py-1 rounded">
+          <div key={show.id} className="min-w-[280px] snap-start bg-surface-dark rounded-[32px] overflow-hidden border border-white/5 group shadow-2xl">
+            <div className="h-44 relative overflow-hidden">
+              <img 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                src={show.imageUrl} 
+                alt={show.title}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?q=80&w=2070&auto=format&fit=crop';
+                }}
+              />
+              <div className="absolute top-4 left-4 bg-primary text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg">
                 {show.dates}
               </div>
             </div>
-            <div className="p-4">
-              <h3 className="font-bold text-base">{show.title}</h3>
-              <p className="text-[11px] text-slate-500 mt-1">{show.category}</p>
-              <div className="mt-4 flex justify-between items-center">
-                <span className="text-sm font-bold text-primary">From ${show.priceFrom}</span>
-                <button className="material-icons-round bg-primary/20 text-primary p-1.5 rounded-lg text-lg active:scale-90 transition-transform">
-                  arrow_forward
+            <div className="p-6">
+              <h3 className="font-black text-lg tracking-tight leading-tight">{show.title}</h3>
+              <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">{show.category}</p>
+              <div className="mt-6 flex justify-between items-center">
+                <div className="flex flex-col">
+                    <span className="text-[10px] text-slate-600 font-black uppercase">Admission</span>
+                    <span className="text-lg font-black text-white">₹{show.priceFrom}+</span>
+                </div>
+                <button className="w-12 h-12 flex items-center justify-center rounded-2xl bg-primary text-white shadow-lg shadow-primary/20 active:scale-90 transition-all">
+                  <span className="material-icons-round">local_activity</span>
                 </button>
               </div>
             </div>

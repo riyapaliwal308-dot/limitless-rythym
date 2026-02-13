@@ -64,7 +64,7 @@ const Checkout: React.FC = () => {
             <div className="h-px bg-white/5 w-full my-2" />
             <div className="flex justify-between items-center">
               <span className="text-slate-200 font-black">Total Paid</span>
-              <span className="text-primary font-black text-2xl">${(classItem.price * 1.05).toFixed(2)}</span>
+              <span className="text-primary font-black text-2xl">₹{(classItem.price * 1.05).toLocaleString('en-IN', { minimumFractionDigits: 0 })}</span>
             </div>
           </div>
 
@@ -142,16 +142,16 @@ const Checkout: React.FC = () => {
         <div className="p-8 rounded-[40px] bg-surface-dark border border-white/5 space-y-4">
           <div className="flex justify-between text-sm">
             <span className="text-slate-400 font-medium">Monthly Tuition</span>
-            <span className="font-bold font-mono">${classItem.price.toFixed(2)}</span>
+            <span className="font-bold font-mono">₹{classItem.price.toLocaleString('en-IN')}</span>
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-slate-400 font-medium">Facility Fee (GST 5%)</span>
-            <span className="font-bold font-mono">${(classItem.price * 0.05).toFixed(2)}</span>
+            <span className="font-bold font-mono">₹{(classItem.price * 0.05).toLocaleString('en-IN', { minimumFractionDigits: 0 })}</span>
           </div>
           <div className="h-px bg-white/5 w-full my-4" />
           <div className="flex justify-between items-center">
             <span className="text-lg font-black tracking-tight">Total Amount</span>
-            <span className="text-primary font-black text-2xl font-mono">${(classItem.price * 1.05).toFixed(2)}</span>
+            <span className="text-primary font-black text-2xl font-mono">₹{(classItem.price * 1.05).toLocaleString('en-IN', { minimumFractionDigits: 0 })}</span>
           </div>
         </div>
 

@@ -107,7 +107,7 @@ const ClassDetail: React.FC = () => {
         <div>
           <span className="text-[10px] text-slate-500 font-bold uppercase block tracking-widest mb-1">Tuition Fee</span>
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-white">${classItem.price}</span>
+            <span className="text-3xl font-black text-white">₹{classItem.price.toLocaleString('en-IN')}</span>
             <span className="text-[10px] text-slate-500 font-bold">/MO</span>
           </div>
         </div>

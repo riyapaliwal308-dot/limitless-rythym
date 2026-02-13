@@ -7,7 +7,9 @@ import Shows from './pages/Shows';
 import Profile from './pages/Profile';
 import ClassDetail from './pages/ClassDetail';
 import Checkout from './pages/Checkout';
+import Register from './pages/Register';
 import BottomNav from './components/BottomNav';
+import AIChatBot from './components/AIChatBot';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
@@ -33,11 +35,13 @@ const App: React.FC = () => {
             <Route path="/checkout/:id" element={<Checkout />} />
             <Route path="/shows" element={<Shows />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/register" element={<Register />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 
-        <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
+        <BottomNav />
+        <AIChatBot />
         
         {/* iOS Home Indicator */}
         <div className="fixed bottom-1.5 left-0 right-0 max-w-[430px] mx-auto flex justify-center z-[60] pointer-events-none">
