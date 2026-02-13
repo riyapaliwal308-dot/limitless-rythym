@@ -6,7 +6,7 @@ const Register: React.FC = () => {
   const navigate = useNavigate();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    name: window.userData?.name || '',
     email: '',
     phone: '',
     style: 'Western',
@@ -15,6 +15,9 @@ const Register: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.name.trim()) {
+      window.updateUser(formData.name.trim());
+    }
     setIsSubmitted(true);
   };
 
@@ -26,13 +29,13 @@ const Register: React.FC = () => {
         </div>
         <h1 className="text-4xl font-black text-center tracking-tighter mb-4">APPLICATION<br/><span className="text-primary">RECEIVED</span></h1>
         <p className="text-slate-400 text-center text-sm font-medium max-w-[280px] leading-relaxed mb-12">
-          An LR scout will contact you via WhatsApp within 24 hours to schedule your auditon or first trial session.
+          Welcome to the family, <strong>{formData.name}</strong>! An LR scout will contact you via WhatsApp within 24 hours.
         </p>
         <button 
-          onClick={() => navigate('/')}
-          className="w-full bg-white text-black py-5 rounded-[24px] font-black text-xs uppercase tracking-widest active:scale-95 transition-all"
+          onClick={() => navigate('/profile')}
+          className="w-full bg-white text-black py-5 rounded-[24px] font-black text-xs uppercase tracking-widest active:scale-95 transition-all shadow-2xl"
         >
-          Return Home
+          View My Profile
         </button>
       </div>
     );

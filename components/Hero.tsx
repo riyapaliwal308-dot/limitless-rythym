@@ -19,8 +19,11 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/30 to-transparent"></div>
       <div className="absolute inset-0 bg-black/20"></div>
       
-      {/* Brand Mark with Official Logo */}
-      <div className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl">
+      {/* Brand Mark with Official Logo - Clickable for Popup */}
+      <div 
+        onClick={() => window.openLogoModal && window.openLogoModal()}
+        className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 hover:scale-105 active:scale-95 transition-all"
+      >
          <div className="w-8 h-8 flex items-center justify-center">
             <img 
               src="https://i.ibb.co/GfkQ5MpP/image.png" 

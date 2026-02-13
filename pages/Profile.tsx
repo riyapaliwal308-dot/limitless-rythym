@@ -1,10 +1,38 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-type ViewState = 'main' | 'pass' | 'qr' | 'billing';
+type ViewState = 'main' | 'pass' | 'qr' | 'billing' | 'edit_profile';
 
-const Profile: React.FC = () => {
+interface ProfileProps {
+  user: { name: string; photo: string };
+}
+
+const Profile: React.FC<ProfileProps> = ({ user }) => {
   const [activeView, setActiveView] = useState<ViewState>('main');
+  const [newName, setNewName] = useState(user.name);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        window.updateUser(user.name, reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpdateName = () => {
+    if (newName.trim()) {
+      window.updateUser(newName.trim());
+      setActiveView('main');
+    }
+  };
 
   const renderPassDetails = () => (
     <div className="animate-in slide-in-from-right duration-500 px-6 pt-4">
@@ -57,7 +85,7 @@ const Profile: React.FC = () => {
       
       <div className="bg-white p-8 rounded-[40px] inline-block mb-8 shadow-2xl shadow-white/5">
         <img 
-          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://maps.google.com/?q=Limitless+Rythymm+Academy+Mumbai" 
+          src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://maps.google.com/?q=Limitless+Rythymm+Academy+Mumbai+User+${encodeURIComponent(user.name)}`} 
           alt="Studio Location QR"
           className="w-48 h-48"
         />
@@ -97,34 +125,51 @@ const Profile: React.FC = () => {
           </div>
           <span className="material-icons-round text-slate-600">more_horiz</span>
         </div>
-
-        <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 flex items-center justify-between opacity-60">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-8 bg-white/10 rounded flex items-center justify-center">
-              <span className="material-icons-round text-slate-400">account_balance_wallet</span>
-            </div>
-            <div>
-              <p className="font-bold text-sm">Google Pay / UPI</p>
-              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">alex@okaxis</p>
-            </div>
-          </div>
-          <span className="material-icons-round text-slate-600">more_horiz</span>
-        </div>
-
-        <div className="p-6 rounded-[32px] bg-surface-dark border border-white/5 flex items-center justify-between opacity-60">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-8 bg-black border border-white/10 rounded flex items-center justify-center text-[10px] font-black text-white">Apple Pay</div>
-            <div>
-              <p className="font-bold text-sm">Connected</p>
-            </div>
-          </div>
-          <span className="material-icons-round text-slate-600">more_horiz</span>
-        </div>
       </div>
 
       <button className="w-full py-5 rounded-[24px] border border-dashed border-white/10 text-primary font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary/5 transition-all">
         + Add Payment Method
       </button>
+    </div>
+  );
+
+  const renderEditModal = () => (
+    <div className="fixed inset-0 z-[150] flex flex-col justify-end">
+        <div 
+          className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setActiveView('main')}
+        ></div>
+        <div className="relative w-full max-w-[430px] mx-auto bg-surface-dark border-t border-white/10 rounded-t-[40px] p-8 pb-12 animate-in slide-in-from-bottom duration-500">
+            <div className="w-12 h-1.5 bg-white/10 rounded-full mx-auto mb-8"></div>
+            <h2 className="text-2xl font-black tracking-tight mb-2">Update Identity</h2>
+            <p className="text-slate-500 text-sm mb-8">Your name will be visible on show rosters and certificates.</p>
+            
+            <div className="space-y-6">
+                <div className="group">
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Full Name</label>
+                    <input 
+                      type="text" 
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-5 px-6 text-base font-bold focus:outline-none focus:border-primary transition-colors text-white"
+                    />
+                </div>
+                
+                <button 
+                  onClick={handleUpdateName}
+                  className="w-full bg-primary text-white py-5 rounded-[24px] font-black text-sm uppercase tracking-widest shadow-2xl shadow-primary/40 active:scale-95 transition-all"
+                >
+                  Save Changes
+                </button>
+                <button 
+                  onClick={() => setActiveView('main')}
+                  className="w-full py-2 text-slate-500 font-bold text-xs uppercase tracking-widest"
+                >
+                  Cancel
+                </button>
+            </div>
+        </div>
     </div>
   );
 
@@ -134,9 +179,17 @@ const Profile: React.FC = () => {
 
   return (
     <div className="animate-in fade-in slide-in-from-bottom duration-700 pb-20">
-      {/* Premium Header with Official Logo */}
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleFileChange} 
+        className="hidden" 
+        accept="image/*"
+      />
+
+      {/* Premium Header */}
       <div className="relative h-64 w-full bg-[#0a1120] overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center opacity-20 scale-125">
+        <div className="absolute inset-0 flex items-center justify-center opacity-30 scale-125">
            <img 
             src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop" 
             className="w-full h-full object-cover mix-blend-overlay"
@@ -145,8 +198,12 @@ const Profile: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#050a14]"></div>
         </div>
         
-        <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-64 h-64 opacity-30">
+        {/* Visible Watermark Logo - Clickable */}
+        <div 
+          onClick={() => window.openLogoModal && window.openLogoModal()}
+          className="absolute inset-0 flex items-center justify-center cursor-pointer group"
+        >
+            <div className="w-64 h-64 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
                 <img 
                   src="https://i.ibb.co/GfkQ5MpP/image.png" 
                   className="w-full h-full object-contain brightness-0 invert" 
@@ -155,22 +212,48 @@ const Profile: React.FC = () => {
             </div>
         </div>
 
+        {/* Top Brand Mark */}
+        <div 
+          onClick={() => window.openLogoModal && window.openLogoModal()}
+          className="absolute top-8 left-6 flex items-center gap-3 px-4 py-2 bg-black/60 backdrop-blur-2xl border border-white/10 rounded-2xl z-20 shadow-2xl cursor-pointer hover:bg-black/80 transition-all"
+        >
+           <div className="w-8 h-8 flex items-center justify-center">
+              <img 
+                src="https://i.ibb.co/GfkQ5MpP/image.png" 
+                className="w-full h-full object-contain" 
+                alt="LR Logo" 
+              />
+           </div>
+           <span className="text-[11px] font-black uppercase tracking-[0.3em]">Limitless</span>
+        </div>
+
         <div className="absolute bottom-0 left-0 w-full p-8 flex flex-col items-center">
             <div className="w-24 h-24 rounded-full p-1 bg-gradient-to-br from-primary to-indigo-400 border-2 border-white/20 relative shadow-2xl shadow-primary/20">
                 <img 
-                    className="w-full h-full object-cover rounded-full" 
-                    src="https://picsum.photos/seed/user123/200" 
+                    className="w-full h-full object-cover rounded-full bg-surface-dark" 
+                    src={user.photo} 
                     alt="Profile" 
                 />
-                <button className="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full border-4 border-[#050a14] flex items-center justify-center shadow-lg">
-                    <span className="material-icons-round text-[14px] text-white">edit</span>
+                <button 
+                  onClick={handlePhotoClick}
+                  className="absolute bottom-0 right-0 w-8 h-8 bg-primary rounded-full border-4 border-[#050a14] flex items-center justify-center shadow-lg hover:scale-110 transition-transform active:scale-90"
+                >
+                    <span className="material-icons-round text-[14px] text-white">photo_camera</span>
                 </button>
             </div>
         </div>
       </div>
 
       <div className="px-6 text-center -mt-2">
-        <h2 className="text-3xl font-black tracking-tight">Alex Rivera</h2>
+        <div className="flex items-center justify-center gap-2">
+            <h2 className="text-3xl font-black tracking-tight">{user.name}</h2>
+            <button 
+              onClick={() => setActiveView('edit_profile')}
+              className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-slate-500 hover:text-primary transition-colors"
+            >
+                <span className="material-icons-round text-sm">edit</span>
+            </button>
+        </div>
         <div className="flex items-center justify-center gap-2 mt-1">
             <span className="text-primary font-black text-[10px] uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded">Elite Member</span>
             <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">• Since 2023</span>
@@ -206,7 +289,7 @@ const Profile: React.FC = () => {
             </div>
             <div>
               <h4 className="font-bold text-sm">Studio Access ID</h4>
-              <p className="text-[11px] text-slate-500 font-medium">Location & Check-in QR</p>
+              <p className="text-[11px] text-slate-500 font-medium">Check-in QR</p>
             </div>
           </div>
           <span className="material-icons-round text-slate-600">chevron_right</span>
@@ -222,7 +305,7 @@ const Profile: React.FC = () => {
             </div>
             <div>
               <h4 className="font-bold text-sm">Billing & Methods</h4>
-              <p className="text-[11px] text-slate-500 font-medium">VISA •••• 4242</p>
+              <p className="text-[11px] text-slate-500 font-medium">Manage Wallet</p>
             </div>
           </div>
           <span className="material-icons-round text-slate-600">chevron_right</span>
@@ -234,6 +317,8 @@ const Profile: React.FC = () => {
           Sign Out of Academy
         </button>
       </div>
+
+      {activeView === 'edit_profile' && renderEditModal()}
     </div>
   );
 };
